@@ -1,0 +1,80 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">-->
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://cdn.muicss.com/mui-0.1.22-rc1/css/mui.min.css" rel="stylesheet" type="text/css" />
+	<link href="css/custom.css" rel="stylesheet" type="text/css" />
+
+	<style>
+		#menu, #content { border: solid 1px silver; }
+		#content { height: 100%; }
+		.fl { float: left; }
+		.fr { float: right; }
+		.clr, .clear { clear: both; }
+		.ib { display: inline-block !important; }
+		.half { width: 50%; }
+		.qtr { width: 25%; }
+		.zone-errors {
+			border: solid 3px salmon;
+		}
+		ul.zone-errors li {
+			color: red;
+			font-weight: bold;
+			margin: 0; padding: 0.5em;
+			list-style: none;
+			margin-left: -2.5em;
+		}
+		.error-indicator {
+			margin-left: 0.5em;
+			color: red;
+			font-size: xx-large;
+			line-height: 0.2;
+			vertical-align: bottom;
+		}
+		.form-dirty {
+			color: #0000ff;
+		}
+		.monthly-amount {
+			font-weight: bold;
+			font-style: italic;
+		}
+	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<script src="http://cdn.muicss.com/mui-0.1.22-rc1/js/mui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <!-- Stores -->
+  <script src="./stores/answer-store.js"></script>
+
+
+	<script src="./js/riot/riot.js"></script>
+  <script src="./js/riot/compiler.js"></script>
+	<script src="./js/riot/riot-control.js"></script>
+	<script src="./js/utils.js"></script>
+
+  <!-- Components -->
+  <script src="./js/menu.html" type="riot/tag"></script>
+  <script src="./js/budget-summary.html" type="riot/tag"></script>
+  <script src="./js/answers.html" type="riot/tag"></script>
+	<script src="./js/app.html" type="riot/tag"></script>
+
+  <app />
+
+	<script>
+    var answerStore = AnswerStore();
+    RiotControl.addStore(answerStore);
+
+		riot.compile(function() {
+      riot.mount("*");
+    });
+	</script>
+
+</body>
+</html>

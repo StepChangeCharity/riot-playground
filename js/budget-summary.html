@@ -1,0 +1,44 @@
+"use strict";
+//# sourceURL=_budget-summary.js
+
+<budget-summary>
+  <div>
+    <p>Your Summary</p>
+    <ul>
+      <li>Total Income: £{Utils.commafy(incomeTotal)}</li>
+      <li>Total Expenditure: £{Utils.commafy(expenditureTotal)}</li>
+      <li><i>leaves</i> Surplus: £{calcSurplus()}</li>
+    </ul>
+  </div>
+
+  <script>
+    var self = this;
+
+    self.incomeTotal = 0;
+    self.expenditureTotal = 0;
+
+    calcSurplus() {
+      return (self.incomeTotal - self.expenditureTotal);
+    }
+
+    RiotControl.on("Answers::ON_CHANGE", function(answers) {
+      self.incomeTotal = 0;
+      self.expenditureTotal = 0;
+
+      answers.forEach(function(p) {
+        if (p.group === "INCOME") {
+          self.incomeTotal += Utils.getMonthly(p.amount, p.frequency);
+          //console.log(p.group, p.dataItem, p.amount, p.frequency, self.incomeTotal);
+
+        } else if (p.group === "EXPENDITURE") {
+          self.expenditureTotal += Utils.getMonthly(p.amount, p.frequency);
+          console.log(p.group, p.dataItem, p.amount, p.frequency, self.expenditureTotal);
+        }
+
+      });
+
+      self.update();
+    });
+
+  </script>
+</budget-summary>
