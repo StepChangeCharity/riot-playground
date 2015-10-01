@@ -1,3 +1,5 @@
+"use strict";
+
 var Utils = {
 
   getMonthly: function(amount, frequency) {
@@ -36,6 +38,21 @@ var Utils = {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
+  },
+
+  toCurrency: function(amount) {
+    if (amount == undefined)
+      amount = 0;
+    amount = parseFloat(amount);
+    amount = amount.toFixed(2);
+
+    var str = "";
+
+    str = Utils.commafy(amount);
+
+    return str;
   }
+
+
 
 };

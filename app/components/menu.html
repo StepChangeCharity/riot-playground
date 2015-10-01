@@ -1,0 +1,38 @@
+"use strict";
+//# sourceURL=_menu.js
+
+<menu>
+  <div id="sidedrawer">
+    <div id="sidenav">
+      <div>
+        <h2 class="mui-navbar-line-height"><a href="/">DR</a></h2>
+        <div class="mui-divider"></div>
+        <ul>
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/debts">Debts</a></li>
+          <li><a href="#/assets">Assets</a></li>
+          <li><a href="#/income">Income</a></li>
+          <li><a href="#/expenditure">Expenditure</a></li>
+          <li><a href="#/advice">Advice</a></li>
+          <li><a href="#/home">You</a></li>
+        </ul>
+        <button type="submit" class="mui-btn" data-mui-color="accent" onClick="{toggleBorders}">Borders ({borderSetting()})</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var self = this;
+    self.bordersOn = false;
+
+    borderSetting() {
+      return (self.bordersOn ? "on" : "off");
+    }
+
+    toggleBorders() {
+      self.bordersOn = !self.bordersOn;
+      RiotControl.trigger(Messages.TOGGLE_BORDER, self.bordersOn);
+    }
+  </script>
+
+</menu>

@@ -1,0 +1,44 @@
+"use strict";
+//# sourceURL=frequency.js
+
+<frequency>
+  <style scoped>
+    select {
+      height: 26px;
+    }
+    span { display: inline-block; }
+    span.borders {
+      border: solid 1px green;
+      padding: 5px;
+    }
+  </style>
+  <span class="{borders: bordersOn}">
+    <select value={answer.frequency} onchange="{frequencyChange}">
+      <option each={FREQUENCY_OPTIONS} value={code}>{ask}</option>
+    </select>
+  </span>
+
+  <script>
+    var self = this;
+    self.answer = opts.answer;
+    self.bordersOn = false;
+
+    self.FREQUENCY_OPTIONS = [
+      { code: "WEEKLY", ask: "Weekly"},
+      { code: "FORTNIGHTLY", ask: "Fortnightly"},
+      { code: "4WEEKLY", ask: "4-Weekly"},
+      { code: "MONTHLY", ask: "Monthly"},
+      { code: "YEARLY", ask: "Yearly"}
+    ];
+
+    frequencyChange(e) {
+      self.answer.frequency = e.target.value;
+      RiotControl.trigger(Messages.ANSWER_CHANGE, self.answer);
+    }
+
+    RiotControl.on(Messages.TOGGLE_BORDER, function(toggle) {
+      self.bordersOn = toggle;
+      self.update();
+    });
+  </script>
+</frequency>

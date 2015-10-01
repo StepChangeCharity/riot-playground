@@ -1,0 +1,29 @@
+"use strict";
+//# sourceURL=_pcm.js
+
+<pcm>
+  <style scoped>
+    .pcm {
+      margin-left: 5px;
+      font-style: italic;
+      font-size: small;
+      text-align: right;
+      display: inline-block;
+    }
+  </style>
+
+  <span class="pcm">&pound;{getSummary()} pcm</span>
+
+  <script>
+    var self = this;
+    getSummary() {
+      var amount = self.opts.amount;
+      var frequency = self.opts.frequency;
+      var monthlyAmount = Utils.getMonthly(amount, frequency);
+      var pretty = Utils.toCurrency(monthlyAmount);
+
+      return pretty;
+    }
+
+  </script>
+</pcm>

@@ -1,0 +1,91 @@
+"use strict";
+//# sourceURL=_error-summary.js
+
+<error-summary>
+  <div class="validation-summary" show={errors.length > 0}>
+    <ul>
+      <li each={error in errors}><span class={error.type}>{getIcon(error)}</span>{error.msg}</li>
+    </ul>
+  </div>
+
+  <script>
+    var self = this;
+    self.errors = [];
+    // self.errors.push( {type: "critical", msg: "My critical error!"} );
+    // self.errors.push( {type: "warning", msg: "My warning error!"} );
+    // self.errors.push( {type: "info", msg: "My info error!"} );
+
+    getIcon(forError) {
+      switch (forError.type) {
+        case "critical": return "[C]";
+        case "warning": return "[W]";
+        case "info": return "[?]";
+      }
+    }
+
+    removeError(key) {
+      var i = 0;
+      for (i = 0; i < self.errors.length; i++) {
+        var curr = self.errors[i];
+        if (curr.key == key) {
+          self.errors = self.errors.splice(i+1, 1);
+        }
+      }
+    }
+
+    addError(msg) {
+      var add = true;
+      var i = 0;
+      for (i=0; i < self.errors.length; i++) {
+        var curr = self.errors[i];
+        if (curr.key === msg.key) {
+          console.log("addError = false");
+          return false;
+        }
+      }
+      if (add) {
+        console.log("addError = true");
+        self.errors.push(msg);
+        return true;
+      }
+    }
+
+    RiotControl.on(Messages.ANSWER_FIXED, function(msg) {
+      // just remove any existing error
+      self.removeError(msg.key);
+      self.update();
+    });
+
+    RiotControl.on(Messages.ANSWER_ERROR, function(msg) {
+      self.addError(msg);
+      self.update();
+    });
+
+
+  </script>
+
+  <style scoped>
+    .validation-summary {
+      margin: 0 2em; 0 2em;
+    }
+    .validation-summary ul {
+      border: solid 3px salmon;
+    }
+    .validation-summary ul li {
+      list-style-type: none;
+      color: red;
+      font-weight: bold;
+      margin: 0; padding: 0.1em;
+      margin-left: -2.5em;
+    }
+    .validation-summary ul li span {
+      width: 30px;
+      display: inline-block;
+    }
+    .validation-summary ul li span.critical { color: #7a2323; }
+    .validation-summary ul li span.warning  { color: #df8a19; }
+    .validation-summary ul li span.info     { color: #233c7a; }
+  </style>
+
+
+</error-summary>

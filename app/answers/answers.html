@@ -1,0 +1,53 @@
+"use strict";
+//# sourceURL=_answers.js
+
+<answers>
+  <style scoped>
+    .answer-group.borders {
+      border: solid 1px red;
+      padding: 0 10px 10px 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+  <form>
+    <div class="answer-group income-group {borders: bordersOn}">
+      <h2>Income</h2>
+      <answeritem each={ income } answer={this}></answeritem>
+    </div>
+
+    <div class="answer-group expenditure-group {borders: bordersOn}">
+      <h2>Expenditure</h2>
+      <answeritem each={ expenditure } answer={this}></answeritem>
+    </div>
+  </form>
+
+  <script>
+    var self = this;
+    self.bordersOn = false;
+    self.answers = [];
+    self.income = [];
+    self.expenditure = [];
+
+    this.on("mount", function() {
+      // force data in view to be loaded and drawn
+      RiotControl.trigger(Messages.ANSWERS_MOUNTED);
+    });
+
+    RiotControl.on(Messages.ANSWERS_CHANGE, function(answers) {
+      self.answers = answers;
+      self.income = self.answers.filter(function(ans) {
+        return (ans.group === "INCOME");
+      });
+      self.expenditure = self.answers.filter(function(ans) {
+        return (ans.group === "EXPENDITURE");
+      });
+
+      self.update();
+    });
+
+    RiotControl.on(Messages.TOGGLE_BORDER, function(toggle) {
+      self.bordersOn = toggle;
+      self.update();
+    });
+  </script>
+</answers>

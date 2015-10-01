@@ -1,0 +1,97 @@
+"use strict";
+//# sourceURL=_answer-item.js
+
+<answeritem>
+  <div class="answer-line {borders: bordersOn}">
+    <label class="prompt" for="_{id}">{answer.prompt}</label>
+    <input id="_{id}" class="answer-amount" type="number" value="{answer.amount}" oninput="{amountChange}" />
+    <frequency answer={answer} />
+    <pcm amount={answer.amount} frequency={answer.frequency}></pcm>
+    <span hide={isValid()} class="error">*</span>
+    <br/>
+  </div>
+
+  <script>
+    var self = this;
+    self.answer = opts.answer;
+    self.bordersOn = false;
+
+    isValid() {
+      var monthlyAmount = Utils.getMonthly(self.answer.amount, self.answer.frequency);
+      var upperBoundary = 123456789;
+      var msg = "";
+      var type = "critical";
+
+      // of course in a "real" system this would be dervied elsewhere !
+      switch (self.dataItem) {
+        case "CltWork": upperBoundary = 1500; break;
+        case "ChildSupport":
+          upperBoundary = 100;
+          type = "warning";
+          break;
+      }
+      var isOK = (monthlyAmount <= upperBoundary);
+      var msg = {
+        type: type,
+        key: self.answer.dataItem,
+        msg: self.answer.dataItem + " cannot be more than £" + Utils.toCurrency(upperBoundary),
+          // TODO: US6 string.format thingy
+        isValid: isOK
+      };
+
+      if (isOK) {
+        RiotControl.trigger(Messages.ANSWER_FIXED, msg);
+      } else {
+        RiotControl.trigger(Messages.ANSWER_ERROR, msg);
+      }
+
+      return isOK;
+    }
+
+    amountChange(e) {
+      self.answer.amount = e.target.value;
+      // Tell the rest of the app an answers has changed
+      // ... budget-summary in our scenario
+      RiotControl.trigger(Messages.ANSWER_CHANGE, self.answer);
+    }
+
+    RiotControl.on(Messages.TOGGLE_BORDER, function(toggle) {
+      self.bordersOn = toggle;
+      self.update();
+    });
+  </script>
+
+  <style scoped>
+    .prompt {
+      color: #4b4b4b;
+    }
+    .grouping {
+      margin-bottom: 5px;
+    }
+    label {
+      width: 300px;
+      display: inline-block;
+    }
+    .answer-line {
+      margin-bottom: 5px;
+    }
+    .answer-line.borders {
+      border: solid 1px blue;
+      padding: 5px;
+    }
+    .answer-amount {
+      width: 100px;
+      text-align: right;
+    }
+    .error {
+      margin-left: 0.5em;
+      color: red;
+      font-size: xx-large;
+      line-height: 0.2;
+      vertical-align: text-bottom;
+    }
+    pcm {
+      width: 200px;
+    }
+  </style>
+</answeritem>

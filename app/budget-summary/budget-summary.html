@@ -1,0 +1,43 @@
+"use strict";
+//# sourceURL=_budget-summary.js
+
+<budget-summary>
+  <div>
+    <p>Your Summary</p>
+    <ul>
+      <li>Total Income: <pcm amount={incomeTotal} frequency="MONTHLY"></pcm></li>
+      <li>Total Expenditure: <pcm amount={expenditureTotal} frequency="MONTHLY"></pcm></li>
+      <li><i>leaves</i> Surplus: <pcm amount={calcSurplus()} frequency="MONTHLY"></pcm></li>
+    </ul>
+  </div>
+
+  <script>
+    var self = this;
+
+    self.incomeTotal = 0;
+    self.expenditureTotal = 0;
+
+    calcSurplus() {
+      return (self.incomeTotal - self.expenditureTotal);
+    }
+
+    RiotControl.on(Messages.ANSWERS_CHANGE, function(answers) {
+      self.incomeTotal = 0;
+      self.expenditureTotal = 0;
+
+      answers.forEach(function(p) {
+        if (p.group === "INCOME") {
+          self.incomeTotal += Utils.getMonthly(p.amount, p.frequency);
+          //console.log(p.group, p.dataItem, p.amount, p.frequency, self.incomeTotal);
+
+        } else if (p.group === "EXPENDITURE") {
+          self.expenditureTotal += Utils.getMonthly(p.amount, p.frequency);
+        }
+
+      });
+
+      self.update();
+    });
+
+  </script>
+</budget-summary>
