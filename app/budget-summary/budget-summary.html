@@ -2,8 +2,8 @@
 //# sourceURL=_budget-summary.js
 
 <budget-summary>
-  <div>
-    <p>Your Summary</p>
+  <div class="budget-summary">
+    <h2>Your Summary</h2>
     <ul>
       <li>Total Income: <pcm amount={incomeTotal} frequency="MONTHLY"></pcm></li>
       <li>Total Expenditure: <pcm amount={expenditureTotal} frequency="MONTHLY"></pcm></li>
@@ -40,4 +40,10 @@
     });
 
   </script>
+  <style scoped>
+    .budget-summary ul {
+      list-style: none;
+      margin-left: -2em;
+    }
+  </style>
 </budget-summary>
