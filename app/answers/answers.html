@@ -2,20 +2,13 @@
 //# sourceURL=_answers.js
 
 <answers>
-  <style scoped>
-    .answer-group.borders {
-      border: solid 1px red;
-      padding: 0 10px 10px 10px;
-      margin-bottom: 10px;
-    }
-  </style>
   <form>
-    <div class="answer-group income-group {borders: bordersOn}">
+    <div class="mui-panel answer-group income-group {borders: bordersOn}">
       <h2>Income</h2>
       <answeritem each={ income } answer={this}></answeritem>
     </div>
 
-    <div class="answer-group expenditure-group {borders: bordersOn}">
+    <div class="mui-panel answer-group expenditure-group {borders: bordersOn}">
       <h2>Expenditure</h2>
       <answeritem each={ expenditure } answer={this}></answeritem>
     </div>
@@ -50,4 +43,11 @@
       self.update();
     });
   </script>
+  <style scoped>
+    .answer-group.borders {
+      border: solid 1px red;
+      padding: 0 10px 10px 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 </answers>

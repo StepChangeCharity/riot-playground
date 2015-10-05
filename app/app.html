@@ -1,11 +1,71 @@
 "use strict";
-//# sourceURL=_app.js
 
 <app>
   <div id="content-wrapper">
-    <menu />
+    <menu></menu>
 
-    <income-page></income-page>
+    <home show={showHome()} title="{currentPage.title}"></home>
+    <debts show={showDebts()} title="{currentPage.title}"></debts>
+    <assets show={showAssets()} title="{currentPage.title}"></assets>
+    <income show={showIncome()} title="{currentPage.title}"></income>
+    <expenditure show={showExpenditure()} title="{currentPage.title}"></expenditure>
+    <advice show={showAdvice()} title="{currentPage.title}"></advice>
+    <about-you show={showAboutYou()} title="{currentPage.title}"></about-you>
   </div>
 
+  <script>
+    var self = this;
+    self.currentPage = null;
+    self.title = null;
+
+    self.pages = [
+      { routeName: "home", title: "Home ..."},
+      { routeName: "debts", title: "Your Debts ..."},
+      { routeName: "assets", title: "Your Assets ..."},
+      { routeName: "income", title: "Your Income ..."},
+      { routeName: "expenditure", title: "Your Expenses ..."},
+      { routeName: "advice", title: "Your Advice ..."},
+      { routeName: "you", title: "About You ..."}
+    ];
+
+    showHome() {
+      return self.currentPage.routeName == "home";
+    }
+    showDebts() {
+      return self.currentPage.routeName == "debts";
+    }
+    showAssets() {
+      return self.currentPage.routeName == "assets";
+    }
+    showIncome() {
+      return self.currentPage.routeName == "income";
+    }
+    showExpenditure() {
+      return self.currentPage.routeName == "expenditure";
+    }
+    showAdvice() {
+      return self.currentPage.routeName == "advice";
+    }
+    showAboutYou() {
+      return self.currentPage.routeName == "you";
+    }
+
+    riot.route(function(id) {
+      var found = self.pages.filter(function(r) {
+        return r.routeName == id;
+      });
+      if (found) {
+        self.currentPage = found[0]
+        self.update();
+      }
+    });
+
+    this.on("mount", function() {
+      // mimics tab being opened up on a specific route - links are the golddust of the Internet!
+      riot.route.exec(function(routeName) {
+        riot.route(routeName);
+      });
+    });
+
+  </script>
 </app>

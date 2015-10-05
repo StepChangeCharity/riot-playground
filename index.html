@@ -27,12 +27,19 @@
   <script src="./app/stores/answer-store.js"></script>
 
   <!-- Components -->
-  <script src="./app/components/menu.html" type="riot/tag"></script>
+	<script src="./app/components/menu.html" type="riot/tag"></script>
+  <script src="./app/components/container.html" type="riot/tag"></script>
 	<script src="./app/components/pcm.html" type="riot/tag"></script>
   <script src="./app/components/error-summary.html" type="riot/tag"></script>
 
 	<!-- Pages -->
-	<script src="./app/pages/income-page.html" type="riot/tag"></script>
+	<script src="./app/pages/01-home-page.html" type="riot/tag"></script>
+	<script src="./app/pages/02-debts-page.html" type="riot/tag"></script>
+	<script src="./app/pages/03-assets-page.html" type="riot/tag"></script>
+	<script src="./app/pages/04-income-page.html" type="riot/tag"></script>
+	<script src="./app/pages/05-expenditure-page.html" type="riot/tag"></script>
+	<script src="./app/pages/06-advice-page.html" type="riot/tag"></script>
+	<script src="./app/pages/07-about-you-page.html" type="riot/tag"></script>
 
 	<!-- features -->
   <script src="./app/budget-summary/budget-summary.html" type="riot/tag"></script>
@@ -41,15 +48,15 @@
 	<script src="./app/answers/frequency.html" type="riot/tag"></script>
 	<script src="./app/app.html" type="riot/tag"></script>
 
-  <app />
+  <app></app>
 
 	<script>
     var answerStore = AnswerStore();
     RiotControl.addStore(answerStore);
 
 		riot.compile(function() {
-      riot.mount("*");
-    });
+    	riot.mount("app");
+		});
 	</script>
 
 </body>
