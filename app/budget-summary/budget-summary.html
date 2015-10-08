@@ -2,7 +2,7 @@
 //# sourceURL=_budget-summary.js
 
 <budget-summary>
-  <div class="mui-panel budget-summary">
+  <div class="mui-panel budget-summary {borders: bordersOn}">
     <h2>Your Summary</h2>
     <ul>
       <li>Total Income: <pcm amount={incomeTotal} frequency="MONTHLY"></pcm></li>
@@ -16,6 +16,7 @@
 
     self.incomeTotal = 0;
     self.expenditureTotal = 0;
+    self.bordersOn = false;
 
     calcSurplus() {
       return (self.incomeTotal - self.expenditureTotal);
@@ -39,11 +40,20 @@
       self.update();
     });
 
+    RiotControl.on(Messages.TOGGLE_BORDER, function(bordersOn) {
+      self.bordersOn = bordersOn;
+      self.update();
+    });
+
   </script>
   <style scoped>
     .budget-summary ul {
       list-style: none;
       margin-left: -2em;
+    }
+    .budget-summary.borders {
+      border: solid 2px #835b7f;
+      padding: 5px;
     }
   </style>
 </budget-summary>

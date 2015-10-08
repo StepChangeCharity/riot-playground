@@ -2,16 +2,6 @@
 //# sourceURL=frequency.js
 
 <frequency>
-  <style scoped>
-    select {
-      height: 26px;
-    }
-    span { display: inline-block; }
-    span.borders {
-      border: solid 1px green;
-      padding: 5px;
-    }
-  </style>
   <span class="{borders: bordersOn}">
     <select value={answer.frequency} onchange="{frequencyChange}">
       <option each={FREQUENCY_OPTIONS} value={code}>{ask}</option>
@@ -41,4 +31,14 @@
       self.update();
     });
   </script>
+
+  <style scoped>
+    select {
+      height: 26px;
+    }
+    span { display: inline-block; }
+    span.borders {
+      border: solid 2px green;
+    }
+  </style>
 </frequency>

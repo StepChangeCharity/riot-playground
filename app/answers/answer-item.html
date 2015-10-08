@@ -4,7 +4,7 @@
 <answeritem>
   <div class="answer-line {borders: bordersOn}">
     <label class="prompt" for="_{id}">{answer.prompt}</label>
-    <input id="_{id}" class="answer-amount" type="number" value="{answer.amount}" oninput="{amountChange}" />
+    <input id="_{id}" class="answer-amount {borders: bordersOn}" type="number" value="{answer.amount}" oninput="{amountChange}" />
     <frequency answer={answer} />
     <pcm amount={answer.amount} frequency={answer.frequency}></pcm>
     <span hide={isValid()} class="error">*</span>
@@ -75,10 +75,6 @@
     .answer-line {
       margin-bottom: 5px;
     }
-    .answer-line.borders {
-      border: solid 1px blue;
-      padding: 5px;
-    }
     .answer-amount {
       width: 100px;
       text-align: right;
@@ -92,6 +88,13 @@
     }
     pcm {
       width: 200px;
+    }
+    .answer-line.borders {
+      border: solid 1px blue;
+      padding: 5px;
+    }
+    input.borders {
+      border: solid 2px indigo;      
     }
   </style>
 </answeritem>

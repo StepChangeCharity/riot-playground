@@ -2,20 +2,12 @@
 //# sourceURL=_pcm.js
 
 <pcm>
-  <style scoped>
-    .pcm {
-      margin-left: 5px;
-      font-style: italic;
-      font-size: small;
-      text-align: right;
-      display: inline-block;
-    }
-  </style>
-
-  <span class="pcm">&pound;{getSummary()} pcm</span>
+  <span class="pcm {borders: bordersOn}">&pound;{getSummary()} pcm</span>
 
   <script>
     var self = this;
+    self.bordersOn = false;
+
     getSummary() {
       var amount = self.opts.amount;
       var frequency = self.opts.frequency;
@@ -25,5 +17,22 @@
       return pretty;
     }
 
+    RiotControl.on(Messages.TOGGLE_BORDER, function(toggle) {
+      self.bordersOn = toggle;
+      self.update();
+    });
   </script>
+
+  <style scoped>
+    .pcm {
+      margin-left: 5px;
+      font-style: italic;
+      font-size: small;
+      text-align: right;
+      display: inline-block;
+    }
+    span.borders {
+      border: solid 2px purple;
+    }
+  </style>
 </pcm>
